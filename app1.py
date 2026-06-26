@@ -1,28 +1,31 @@
 import os
-import requests
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
-# ==========================================
-# 1. 定義發送 Discord Webhook 的功能
-# ==========================================
-def send_discord_webhook(webhook_url, title, content):
-    """直接發送漂亮的卡片訊息到 Discord"""
-    payload = {
-        "content": "**來自 Streamlit 網頁的即時通知！**",
-        "embeds": [
-            {
-                "title": f" {title}",
-                "description": content,
-                "color": 5763719,  # 綠色邊條 (十進位顏色碼)
-                "footer": {
-                    "text": "由 Github Actions 自動觸發"
-                }
-            }
-        ]
-    }
-   
-    # 發送 POST 請求給 Discord
-    response = requests.post(webhook_url, json=payload)
-    return response.status_code
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 
-status = send_discord_webhook(WEBHOOK_URL, "沒事", "測試")
+today = datetime.now().date()
+
+# 今天 + 2 個月 = 預計看診日
+target_date = today + relativedelta(months=2)
+
+# Python weekday: Monday=0 ... Saturday=5
+is_saturday = target_date.weekday() == 5
+
+if is_saturday:
+    send_discord_webhook(
+        WEBHOOK_URL,
+        "中醫針灸預約提醒",
+        f"""請準備掛號：
+
+中國醫藥大學 中醫針灸
+張哲彬 醫師
+
+📅 看診日期：{target_date:%Y/%m/%d}
+
+🕙 請於今晚 22:30 準時掛號
+
+🔗 https://www.cmuh.cmu.edu.tw/OnlineAppointment/DoctorInfo?flag=second&DocNo=24871&Docname=%E5%BC%B5%E5%93%B2%E5%BD%AC
+
+由 Github Actions 自動觸發"""
+    )
