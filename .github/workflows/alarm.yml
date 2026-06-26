@@ -3,7 +3,7 @@ name: 鬧鐘助理
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 22 * * *'
+    - cron: '30 14 * * *'
 
 jobs:
   check-sheet-and-alarm:
