@@ -40,7 +40,7 @@ if target_date.weekday() == 5:
 
 📅 看診日期：{target_date:%Y/%m/%d}
 
-🕙 請於今晚 22:30 準時掛號
+🕙 請於今晚 23:59 準備掛號
 
 🔗 https://www.cmuh.cmu.edu.tw/OnlineAppointment/DoctorInfo?flag=second&DocNo=24871&Docname=%E5%BC%B5%E5%93%B2%E5%BD%AC
 
