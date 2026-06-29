@@ -25,8 +25,8 @@ def send_discord_webhook(webhook_url, title, message):
 # 台灣時間
 today = datetime.now(ZoneInfo("Asia/Taipei")).date()
 
-# 今天 + 1 個月
-target_date = today + relativedelta(months=1)
+# 今天 + 2 個月
+target_date = today + relativedelta(months=2)
 
 # 是否星期六
 if target_date.weekday() == 5:
