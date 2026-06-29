@@ -1,18 +1,31 @@
 import os
+import requests
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from dateutil.relativedelta import relativedelta
 
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 
-today = datetime.now().date()
 
-# 今天 + 2 個月 = 預計看診日
+def send_discord_webhook(webhook_url, title, message):
+    if not webhook_url:
+        raise ValueError("DISCORD_WEBHOOK_URL 沒有設定")
+
+    requests.post(webhook_url, json={
+        "embeds": [
+            {
+                "title": title,
+                "description": message,
+                "color": 3447003
+            }
+        ]
+    })
+
+
+today = datetime.now(ZoneInfo("Asia/Taipei")).date()
 target_date = today + relativedelta(months=2)
 
-# Python weekday: Monday=0 ... Saturday=5
-is_saturday = target_date.weekday() == 5
-
-if is_saturday:
+if target_date.weekday() == 5:
     send_discord_webhook(
         WEBHOOK_URL,
         "中醫針灸預約提醒",
@@ -27,5 +40,5 @@ if is_saturday:
 
 🔗 https://www.cmuh.cmu.edu.tw/OnlineAppointment/DoctorInfo?flag=second&DocNo=24871&Docname=%E5%BC%B5%E5%93%B2%E5%BD%AC
 
-由 Github Actions 自動觸發"""
+由 GitHub Actions 自動觸發"""
     )
