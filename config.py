@@ -26,8 +26,8 @@ DOCTORS = [
 
         "dept": "神經內科",
 
-        # 星期六
-        "weekday": 5,
+        # 星期三
+        "weekday": 2,
 
         "link":
         "https://www.cmuh.org.tw/OnlineAppointment/DoctorInfo?flag=second&DocNo=D7381&Docname=盧菁華"
