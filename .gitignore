@@ -1,2 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+
+# 環境設定
+.env
+
+
+# Streamlit
 .streamlit/
-sheet.py
+
+
+# Google 金鑰
+credentials.json
+
+
+# IDE
+.vscode/
+.idea/
