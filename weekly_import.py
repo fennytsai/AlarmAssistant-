@@ -127,7 +127,6 @@ while current <= end_date:
 
                 )
 
-
     current += timedelta(
         days=1
     )
