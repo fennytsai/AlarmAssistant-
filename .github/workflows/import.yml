@@ -1,0 +1,52 @@
+name: 年度匯入看診日期
+
+on:
+
+  workflow_dispatch:
+
+  schedule:
+
+    # 每年1月1日 UTC 00:00
+    # 台灣時間08:00
+
+    - cron: "0 0 1 1 *"
+
+jobs:
+
+  import:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+
+        uses: actions/checkout@v5
+
+
+      - name: Setup Python
+
+        uses: actions/setup-python@v6
+
+        with:
+
+          python-version: "3.11"
+
+
+      - name: Install
+
+        run: |
+
+          pip install -r requirements.txt
+
+
+      - name: 執行年度匯入
+
+        env:
+
+          GOOGLE_CREDENTIALS_JSON:
+            ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+
+        run: |
+
+          python weekly_import.py
