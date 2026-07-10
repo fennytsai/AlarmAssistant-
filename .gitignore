@@ -18,7 +18,3 @@ credentials.json
 # IDE
 .vscode/
 .idea/
-
-discord.py
-fastapi
-uvicorn
